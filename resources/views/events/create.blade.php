@@ -1,0 +1,24 @@
+<!-- resources/views/events/create.blade.php -->
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Create Event</h1>
+    <form method="POST" action="{{ route('events.store') }}">
+        @csrf
+        <div class="mb-3">
+            <label for="name" class="form-label">Event Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Event Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="event_date" class="form-label">Event Date</label>
+            <input type="datetime-local" class="form-control" id="event_date" name="event_date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Event</button>
+    </form>
+</div>
+@endsection
