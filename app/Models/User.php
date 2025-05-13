@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -34,7 +33,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -44,5 +43,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relationship: A user can create many events
+    public function eventsCreated()
+    {
+        return $this->hasMany(Event::class, 'created_by');
+    }
+
+    // Relationship: A user can attend many events (through the event_user pivot table)
+    public function eventsAttending()
+    {
+        return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id');
     }
 }

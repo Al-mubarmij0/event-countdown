@@ -1,36 +1,88 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .social-icons a {
+            display: inline-block;
+            font-size: 20px; 
+        }
+
+        .social-icons i {
+            margin-right: 8px; 
+        }
+
+    </style>
+
+    <!-- Additional Styles -->
+    @stack('styles')
+</head>
+<body class="bg-light text-dark">
+    <div class="min-vh-100 d-flex flex-column">
+        {{-- Navigation --}}
+        @include('layouts.navigation')
+
+        {{-- Page Header --}}
+        @isset($header)
+            <header class="bg-white shadow-sm py-3 mb-4">
+                <div class="container">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
+
+        {{-- Page Content --}}
+        <main class="flex-grow-1">
+            <div class="container py-3">
+                @yield('content')
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4">
+            <div class="container text-center">
+                <p>&copy; {{ date('Y') }} Event Countdown. All rights reserved.</p>
+                <p>
+                    <a href="#" class="text-white text-decoration-none">Privacy Policy</a> |
+                    <a href="#" class="text-white text-decoration-none">Terms of Service</a>
+                </p>
+                <p>Follow us on:</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-facebook"></i> </a>
+                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-twitter"></i> </a>
+                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-instagram"></i> </a>
                     </div>
-                </header>
-            @endisset
 
-            <!-- Page Content -->
-            <main>
-                @yield('content') <!-- This is where the content will be injected -->
-            </main>
-        </div>
-    </body>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle (with Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    @stack('scripts')
+</body>
 </html>
