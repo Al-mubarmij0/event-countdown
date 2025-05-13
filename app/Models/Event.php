@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'name',             
+        'event_name',       // ✔ Matches your migration
         'description',      
-        'event_date',       
         'start_time',       
         'end_time',         
+        'location',         
+        'created_by',       // ✔ Needed for the foreign key
     ];
 
+     protected $casts = [
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+    
     // Relationship: An event can have many attendees (users)
     public function attendees()
     {

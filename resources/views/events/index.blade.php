@@ -1,4 +1,3 @@
-<!-- resources/views/events/index.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -8,15 +7,15 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Date</th>
+                <th>Start Time</th>
                 <th>Details</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($events as $event)
                 <tr>
-                    <td>{{ $event->name }}</td>
-                    <td>{{ $event->event_date->format('F j, Y, g:i a') }}</td>
+                    <td>{{ $event->event_name }}</td>
+                    <td>{{ optional($event->start_time)->format('F j, Y H:i') ?? 'Not specified' }}</td>
                     <td><a href="{{ route('events.show', $event) }}" class="btn btn-primary">View</a></td>
                 </tr>
             @endforeach

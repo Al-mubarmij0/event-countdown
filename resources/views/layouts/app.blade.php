@@ -25,15 +25,6 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .social-icons a {
-            display: inline-block;
-            font-size: 20px; 
-        }
-
-        .social-icons i {
-            margin-right: 8px; 
-        }
-
     </style>
 
     <!-- Additional Styles -->
@@ -68,13 +59,11 @@
                     <a href="#" class="text-white text-decoration-none">Privacy Policy</a> |
                     <a href="#" class="text-white text-decoration-none">Terms of Service</a>
                 </p>
-                <p>Follow us on:</p>
-                    <div class="social-icons">
-                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-facebook"></i> </a>
-                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-twitter"></i> </a>
-                        <a href="#" class="text-white text-decoration-none d-block mb-2"><i class="fab fa-instagram"></i> </a>
-                    </div>
-
+                <p>Follow us on:
+                    <a href="#" class="text-white text-decoration-none"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-white text-decoration-none"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white text-decoration-none"><i class="fab fa-instagram"></i></a>
+                </p>
             </div>
         </footer>
     </div>

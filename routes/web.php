@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
 
     // Create event form
-    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');  // Updated to match the route name
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
 
     // Show event details (for both users and admins)
@@ -28,8 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/calendar', [EventController::class, 'calendar'])->name('events.calendar');
 
     // Route for authenticated users to see their own events
-    Route::get('/my-events', [EventController::class, 'myEvents'])->name('events.my');  // Updated route name
+    Route::get('/my-events', [EventController::class, 'myEvents'])->name('events.my');
 });
+
+// New route for getting calendar events
+Route::get('/calendar-events', [EventController::class, 'getCalendarEvents']);  // New route for calendar events
+
 
 // Admin Routes (Admin only)
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->group(function () {

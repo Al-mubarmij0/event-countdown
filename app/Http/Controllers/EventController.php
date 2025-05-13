@@ -10,7 +10,7 @@ class EventController extends Controller
     // List all events
     public function index()
     {
-        $events = Event::orderBy('event_date', 'asc')->get();
+        $events = Event::orderBy('start_time', 'asc')->get();
         return view('events.index', compact('events'));
     }
 
@@ -24,16 +24,23 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'event_date' => 'required|date',
+            'event_name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'start_time' => 'required|date|before_or_equal:end_time',
+            'end_time' => 'required|date|after_or_equal:start_time',
+            'location' => 'required|string|max:255',
         ]);
 
-        // Add the authenticated user_id to the event before saving
-        $request->merge(['user_id' => auth()->id()]);
+        Event::create([
+            'event_name'  => $request->event_name,
+            'description' => $request->description,
+            'start_time'  => $request->start_time,
+            'end_time'    => $request->end_time,
+            'location'    => $request->location,
+            'created_by'  => auth()->id(),
+        ]);
 
-        Event::create($request->all());
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     // Show event details
@@ -45,9 +52,25 @@ class EventController extends Controller
     // Display the events created by the authenticated user
     public function myEvents()
     {
-        // Retrieve the events for the authenticated user
-        $events = auth()->user()->events;  // Assuming you have a relationship set up
-
+        $events = Event::where('created_by', auth()->id())->orderBy('start_time', 'asc')->get();
         return view('events.my', compact('events'));
+    }
+
+    // Get all events for calendar display
+    public function getCalendarEvents()
+    {
+        $events = Event::all();
+        
+        // Format events to fit the calendar data structure
+        $calendarEvents = $events->map(function ($event) {
+            return [
+                'title' => $event->event_name,
+                'start' => $event->start_time->toIso8601String(),
+                'end' => $event->end_time->toIso8601String(),
+                'description' => $event->description,
+            ];
+        });
+
+        return response()->json($calendarEvents);
     }
 }
