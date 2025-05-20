@@ -86,3 +86,5 @@ Feel free to open issues and submit pull requests for improvements or new featur
 
 License
 This project is licensed under the MIT License - see the LICENSE file for details.
+## Author
+- mohammedmubaraksani@gmail.com
